@@ -6,7 +6,7 @@
 Smartface Barcode Extension can be installed via npm easily from our public npm repository. The installation is pretty easy via Smartface Cloud IDE.
 
 - Open scripts/package.json file inside your workspace.
-- Add Facebook plugin dependency as:`"sf-extension-barcode": "^1.0.0"`
+- Add Barcode extension dependency as:`"sf-extension-barcode": "^1.0.0"`
 - Run command `npm install` under the folder `scripts`
 - Finally require the extension as: `require("sf-extension-barcode")`
 
@@ -23,10 +23,10 @@ barcodeScanner.layout.addChild(view);
 4) Set `onResult` callback to handle the result: 
 ```javascript
 barcodeScanner.onResult = function(e) {
-	var barcode = e.barcode;
+    var barcode = e.barcode;
 }
 ```
-5) Finally call `show` method with required parameters to scan barcode.
+5) Finally call `show` method with required parameters to scan barcode. Don't forget to guarantee camera permission for android before calling `show` method.
 ```javascript
 barcodeScanner.show({page: pageInstance, tag: "myPageTag"});
 ```
