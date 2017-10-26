@@ -33,6 +33,11 @@ barcodeScanner.show({page: pageInstance, tag: "myPageTag"});
 ## Sample
 The folder `sample` holds the example codes. You can put them into your workspace and start using it. 
 
+## Credits
+This barcode library is based on:
+1) Android implementation: https://github.com/dm77/barcodescanner
+2) iOS implementation: https://github.com/TheLevelUp/ZXingObjC
+
 ## Need Help?
 Please [submit an issue](https://github.com/smartface/sf-extension-barcode/issues) on GitHub and provide information about your problem.
 
