@@ -3,7 +3,7 @@
 [![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://raw.githubusercontent.com/smartface/sf-extension-barcode/master/LICENSE)
 
 ## Installation
-Smartface Facebook Plugin can be installed via npm easily from our public npm repository. The installation is pretty easy via Smartface Cloud IDE.
+Smartface Barcode Extension can be installed via npm easily from our public npm repository. The installation is pretty easy via Smartface Cloud IDE.
 
 - Open scripts/package.json file inside your workspace.
 - Add Facebook plugin dependency as:`"sf-extension-barcode": "^1.0.0"`
