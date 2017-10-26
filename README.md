@@ -16,11 +16,10 @@ Smartface Barcode Extension can be installed via npm easily from our public npm 
 ```javascript
 var barcodeScanner = new BarcodeScanner();
 ```
-3) You can customize scanning page using `barcodeScanner.layout`: 
+3) You can customize scanning page using `barcodeScanner.layout`. Look at sample code in `sample` folder for details.
 ```javascript
 barcodeScanner.layout.addChild(view);
 ```
-Look at `sample` folder for details.
 4) Set `onResult` callback to handle the result: 
 ```javascript
 barcodeScanner.onResult = function(e) {
