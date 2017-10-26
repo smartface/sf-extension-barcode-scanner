@@ -1,0 +1,16 @@
+{
+  "name": "sf-extension-barcode",
+  "version": "1.0.0",
+  "description": "Smartface Extension Barcode",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["smartface", "extension", "barcode", "javascript"],
+  "author": {
+    "name": "Smartface",
+    "email": "info@smartface.io",
+    "url": "http://smartface.io"
+  },
+  "license": "ISC"
+}
