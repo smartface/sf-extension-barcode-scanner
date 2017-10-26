@@ -18,36 +18,35 @@ var pageBarcode = extend(Page)(
         };
         
         self.onLoad = function() {
-            var barcodeScanner = new BarcodeScanner({
-                onResult : function(e){
-                    barcodeScanner.stopCamera();
-                    console.log("Barcode :" + JSON.stringify(e.barcode));
-                }
-            });
-            
-            var btnHideScanner = new Button();
-            btnHideScanner.text = "X";
-            btnHideScanner.positionType = FlexLayout.PositionType.ABSOLUTE;
-            btnHideScanner.top = 20;
-            btnHideScanner.right = 10;
-            btnHideScanner.width = 80;
-            btnHideScanner.height = 80;
-            btnHideScanner.textColor = Color.WHITE;
-            btnHideScanner.backgroundColor = Color.create(100,0,0,0);
-            btnHideScanner.borderRadius = 40;
-            btnHideScanner.font = Font.create(Font.DEFAULT,20,Font.BOLD);
-            btnHideScanner.onPress = function(){
-                barcodeScanner.hide();
-            };
-            
-            barcodeScanner.layout.addChild(btnHideScanner);
-                
             var showScanner = new Button({height: 100, text: "Show Barcode Scanner"});
             showScanner.onResult = function(e) {
                 console.log("Barcode: " + JSON.stringify(e));   
             };
             
             showScanner.onPress = function(){
+                var barcodeScanner = new BarcodeScanner({
+                    onResult : function(e){
+                        barcodeScanner.stopCamera();
+                        console.log("Barcode :" + JSON.stringify(e.barcode));
+                    }
+                });
+            
+                var btnHideScanner = new Button();
+                btnHideScanner.text = "X";
+                btnHideScanner.positionType = FlexLayout.PositionType.ABSOLUTE;
+                btnHideScanner.top = 20;
+                btnHideScanner.right = 10;
+                btnHideScanner.width = 80;
+                btnHideScanner.height = 80;
+                btnHideScanner.textColor = Color.WHITE;
+                btnHideScanner.backgroundColor = Color.create(100,0,0,0);
+                btnHideScanner.borderRadius = 40;
+                btnHideScanner.font = Font.create(Font.DEFAULT,20,Font.BOLD);
+                btnHideScanner.onPress = function(){
+                    barcodeScanner.hide();
+                };
+                
+                barcodeScanner.layout.addChild(btnHideScanner);
                 barcodeScanner.show({page:self, tag: "scannerPage"});
             };
             
