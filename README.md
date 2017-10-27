@@ -28,14 +28,12 @@ barcodeScanner.onResult = function(e) {
 barcodeScanner.show({page: pageInstance, tag: "myPageTag"});
 ```
 ## Permissions
- - iOS
- You have to add camera permission in Info.plist.
+ For iOS platforms, you have to add camera permission in Info.plist.
 ```xml
 <key>NSCameraUsageDescription</key>
 <string>${PRODUCT_NAME} Camera Usage</string>
 ```
-- Android
-You have to add camera permission in your AndroidManifest.xml.
+For android platforms,You have to add camera permission in your AndroidManifest.xml.
 ```xml
 <uses-permission android:name="android.permission.CAMERA" />
 
