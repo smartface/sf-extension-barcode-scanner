@@ -114,6 +114,9 @@ function BarcodeScanner(params) {
             
             var CaptureDelegate = SF.defineClass("CaptureDelegate : NSObject <ZXCaptureDelegate>", {
                 captureResultResult : function(capture, result){
+                    if (!self.isStart) {
+                        return;
+                    }
                     var text = Invocation.invokeInstanceMethod(result,"text",[],"NSString");
                     var format = Invocation.invokeInstanceMethod(result,"barcodeFormat",[],"int");
                     if (typeof self.onResult === 'function') {
@@ -130,6 +133,8 @@ function BarcodeScanner(params) {
                 value: self.pageScanner.captureDelegate
             });
             Invocation.invokeInstanceMethod(self.pageScanner.capture,"setDelegate:",[argCaptureDelegate]);
+            
+            self.isStart = true;
         }
     });
     
@@ -146,15 +151,17 @@ function BarcodeScanner(params) {
     };
     
     self.hide = function(e){
-        Invocation.invokeInstanceMethod(self.pageScanner.capture,"stop",[]);
+        self.stopCamera();
         self.pageScanner.nativeObject.dismissViewController();
     };
     
     self.startCamera = function(e){
+        self.isStart = true;
         Invocation.invokeInstanceMethod(self.pageScanner.capture,"start",[]);
     };
     
     self.stopCamera = function(e){
+        self.isStart = false;
         Invocation.invokeInstanceMethod(self.pageScanner.capture,"stop",[]);
     };
     

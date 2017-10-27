@@ -5,32 +5,30 @@ const Color          = require('sf-core/ui/color');
 const Button         = require('sf-core/ui/button');
 const Font           = require('sf-core/ui/font');
 const BarcodeScanner = require("sf-extension-barcode").BarcodeScanner;
+const System         = require('sf-core/device/system');
 
 var pageBarcode = extend(Page)(
     function(_super) {
         _super(this);
-        
         var self = this;
-        self.orientation = Page.Orientation.AUTO;
         
         self.onShow = function() {
             self.headerBar.visible = false;  
         };
-        
+
         self.onLoad = function() {
-            var showScanner = new Button({height: 100, text: "Show Barcode Scanner"});
-            showScanner.onResult = function(e) {
-                console.log("Barcode: " + JSON.stringify(e));   
-            };
-            
+            var showScanner = new Button();
+            showScanner.height = 100;
+            showScanner.text = "Show Barcode Scanner"
             showScanner.onPress = function(){
                 var barcodeScanner = new BarcodeScanner({
                     onResult : function(e){
-                        barcodeScanner.stopCamera();
                         console.log("Barcode :" + JSON.stringify(e.barcode));
+                        barcodeScanner.stopCamera();
+                        barcodeScanner.hide();
                     }
                 });
-            
+                
                 var btnHideScanner = new Button();
                 btnHideScanner.text = "X";
                 btnHideScanner.positionType = FlexLayout.PositionType.ABSOLUTE;
@@ -47,8 +45,29 @@ var pageBarcode = extend(Page)(
                 };
                 
                 barcodeScanner.layout.addChild(btnHideScanner);
-                barcodeScanner.show({page:self, tag: "scannerPage"});
-            };
+            
+                if (System.OS == "iOS") {
+                    BarcodeScanner.ios.checkPermission({
+                        onSuccess : function(){
+                            barcodeScanner.show({page:self, tag: "scannerPage"});
+                        },
+                        onFailure : function(){
+                            const AlertView = require('sf-core/ui/alertview');
+                            var myAlertView = new AlertView({
+                                title: "",
+                                message: "Need Permission"
+                            });
+                            myAlertView.addButton({
+                                type: AlertView.Android.ButtonType.NEGATIVE,
+                                text: "Ok"
+                            });     
+                            myAlertView.show();
+                        }
+                    });
+                }else{
+                    barcodeScanner.show({page:self, tag: "scannerPage"});
+                }
+            }
             
             self.layout.addChild(showScanner);
             
