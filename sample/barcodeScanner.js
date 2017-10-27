@@ -6,6 +6,7 @@ const Button         = require('sf-core/ui/button');
 const Font           = require('sf-core/ui/font');
 const BarcodeScanner = require("sf-extension-barcode").BarcodeScanner;
 const System         = require('sf-core/device/system');
+const Application    = require("sf-core/application"); 
 
 var pageBarcode = extend(Page)(
     function(_super) {
@@ -19,7 +20,7 @@ var pageBarcode = extend(Page)(
         self.onLoad = function() {
             var showScanner = new Button();
             showScanner.height = 100;
-            showScanner.text = "Show Barcode Scanner"
+            showScanner.text = "Show Barcode Scanner";
             showScanner.onPress = function(){
                 var barcodeScanner = new BarcodeScanner({
                     onResult : function(e){
@@ -64,13 +65,24 @@ var pageBarcode = extend(Page)(
                             myAlertView.show();
                         }
                     });
-                }else{
-                    barcodeScanner.show({page:self, tag: "scannerPage"});
+                } else {
+                    const CAMERA_PERMISSION_CODE = 1002;
+                    if(Application.android.checkPermission(Application.Android.Permissions.CAMERA)){
+                            barcodeScanner.show({page:self, tag: "scannerPage"});
+                    }
+                    else{
+                         Application.android.requestPermissions(CAMERA_PERMISSION_CODE, Application.Android.Permissions.CAMERA);
+                    }
+                    
+                    Application.android.onRequestPermissionsResult = function(e){
+                        if(e.requestCode === CAMERA_PERMISSION_CODE && e.result) {
+                            barcodeScanner.show({page:self, tag: "scannerPage"});
+                        }
+                    };
                 }
-            }
+            };
             
             self.layout.addChild(showScanner);
-            
             self.layout.applyLayout();
         };
     }
