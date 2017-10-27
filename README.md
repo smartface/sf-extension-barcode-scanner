@@ -23,7 +23,7 @@ barcodeScanner.onResult = function(e) {
     var barcode = e.barcode;
 }
 ```
-5) Finally call `show` method with required parameters to scan barcode. Don't forget to guarantee camera [permission](#permissions) `show` method.
+5) Finally call `show` method with required parameters to scan barcode. Don't forget to guarantee camera [permission](#permissions) before `show` method.
 ```javascript
 barcodeScanner.show({page: pageInstance, tag: "myPageTag"});
 ```
