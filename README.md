@@ -33,7 +33,7 @@ barcodeScanner.show({page: pageInstance, tag: "myPageTag"});
 <key>NSCameraUsageDescription</key>
 <string>${PRODUCT_NAME} Camera Usage</string>
 ```
-For android platforms,You have to add camera permission in your AndroidManifest.xml.
+For Android platforms,You have to add camera permission in your AndroidManifest.xml.
 ```xml
 <uses-permission android:name="android.permission.CAMERA" />
 
