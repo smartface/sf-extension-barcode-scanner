@@ -5,7 +5,7 @@
 Smartface Barcode Extension can be installed via npm easily from our public npm repository. The installation is pretty easy via Smartface Cloud IDE.
 - Open scripts/package.json file inside your workspace.
 - Add Barcode extension dependency as:`"sf-extension-barcode": "^1.0.0"`
-- Run command `npm install` under the folder `scripts`
+- Run command `cd ~/workspace/scripts && npm i -S sf-extension-barcode`
 - Finally require the extension as: `require("sf-extension-barcode")`
 ## How to use
 1) Require extension with `require("sf-extension-barcode").BarcodeScanner`
