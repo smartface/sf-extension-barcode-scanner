@@ -9,7 +9,7 @@ Smartface Barcode Extension can be installed via npm easily from our public npm 
 - Finally require the extension as: `require("sf-extension-barcode")`
 ## How to use
 1) Require extension with `require("sf-extension-barcode").BarcodeScanner`
-2) Create an instance of `BarcodeScanner` via below example. The scanning page is a fullscreen page.
+2) Create an instance of `BarcodeScanner` via below example. You have to create barcode scanner object after `onShow` method. The scanning page is a fullscreen page.
 ```javascript
 var barcodeScanner = new BarcodeScanner();
 ```
