@@ -40,7 +40,7 @@ barcodeScanner.show({page: pageInstance, tag: "myPageTag"});
 ```
 
 ## Barcode Format Type
-We have an enum for describing barcode format type. 
+Supported Formats: 
 ```javascript
 Barcode.FormatType.AZTEC
 Barcode.FormatType.CODABAR
