@@ -28,6 +28,7 @@ barcodeScanner.layout.addChild(view);
 ```javascript
 barcodeScanner.onResult = function(e) {
     var barcode = e.barcode;
+    var format = e.barcode.format;
     page.lblBarcode.text = barcode.text;
     barcodeScanner.stopCamera();
     barcodeScanner.hide();
