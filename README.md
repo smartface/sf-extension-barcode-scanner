@@ -38,6 +38,37 @@ barcodeScanner.onResult = function(e) {
 ```javascript
 barcodeScanner.show({page: pageInstance, tag: "myPageTag"});
 ```
+
+## Barcode Format Type
+We have an enum for describing barcode format type. 
+```javascript
+Barcode.FormatType.AZTEC
+Barcode.FormatType.CODABAR
+Barcode.FormatType.CODE_39
+Barcode.FormatType.CODE_93
+Barcode.FormatType.CODE_128
+Barcode.FormatType.DATA_MATRIX
+Barcode.FormatType.EAN_8
+Barcode.FormatType.EAN_13
+Barcode.FormatType.ITF
+Barcode.FormatType.MAXICODE
+Barcode.FormatType.PDF_417
+Barcode.FormatType.QR_CODE
+Barcode.FormatType.RSS_14
+Barcode.FormatType.RSS_EXPANDED
+Barcode.FormatType.UPC_A
+Barcode.FormatType.UPC_E
+Barcode.FormatType.UPC_EAN_EXTENSION
+```    
+
+You can get format type via below code.
+```javascript
+barcodeScanner.onResult = function(e) {
+    var barcode = e.barcode;
+    if(barcode.format === Barcode.FormatType.QR_CODE) {
+        console.log("This is a qr code");
+    }
+```    
 ## Notes
 1. Hiding the barcodeScanner causes [page.onShow](http://ref.smartface.io/#!/api/UI.Page-event-onShow) event to be fired.
 2. If there is a need for closing the scanner, it needs to be implemented by the developer. UI close button example is in [sample](./sample) folder. For Android [onBackButtonPressed](http://ref.smartface.io/#!/api/UI.Page-event-onBackButtonPressed) needs to be implemented.
