@@ -3,40 +3,29 @@
 [![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://raw.githubusercontent.com/smartface/sf-extension-barcode/master/LICENSE)
 ## Installation
 Smartface Barcode Extension can be installed via npm easily from our public npm repository. The installation is pretty easy via Smartface Cloud IDE.
-- Run command
 ```shell
 (cd ~/workspace/scripts && npm i -S sf-extension-barcode)
 ```
-- Finally require the extension as:
-```javascript
-const BarcodeScanner = require("sf-extension-barcode").BarcodeScanner;
-```
 ## How to use
-1) Require extension with
+- Require extension with
 ```javascript
-const BarcodeScanner = require("sf-extension-barcode").BarcodeScanner;
+const { BarcodeScanner } = require("sf-extension-barcode");
 ```
-2) Create an instance of `BarcodeScanner` via below example. You have to create barcode scanner object after `onShow` method. The scanning page is a fullscreen page.
+- Create an instance of `BarcodeScanner`. Result will be handled in `onResult` callback.
 ```javascript
-var barcodeScanner = new BarcodeScanner();
+var barcodeScanner = new BarcodeScanner({
+    page, // Required
+    onResult: ({ barcode }) => {
+        let { text, format } = barcode;
+        alert(text);
+        barcodeScanner.stopCamera();
+        barcodeScanner.hide();
+    }
+});
 ```
-3) You can customize scanning page using `barcodeScanner.layout`. Look at sample code in [sample](./sample) folder for details.
+- Finally call `show` method with no parameters. Camera [permissions](#permissions) must be granted before running `show` method.
 ```javascript
-barcodeScanner.layout.addChild(view);
-```
-4) Set `onResult` callback to handle the result: 
-```javascript
-barcodeScanner.onResult = function(e) {
-    var barcode = e.barcode;
-    var format = e.barcode.format;
-    page.lblBarcode.text = barcode.text;
-    barcodeScanner.stopCamera();
-    barcodeScanner.hide();
-}
-```
-5) Finally call `show` method with required parameters to scan barcode. Don't forget to guarantee camera [permission](#permissions) before `show` method.
-```javascript
-barcodeScanner.show({page: pageInstance, tag: "myPageTag"});
+barcodeScanner.show();
 ```
 
 ## Barcode Format Type
@@ -61,20 +50,20 @@ Barcode.FormatType.UPC_E
 Barcode.FormatType.UPC_EAN_EXTENSION
 ```    
 
-You can get format type via below code.
+Barcode format can be retrieved like this.
 ```javascript
-barcodeScanner.onResult = function(e) {
-    var barcode = e.barcode;
-    if(barcode.format === Barcode.FormatType.QR_CODE) {
+const { Barcode } = require("sf-extension-barcode");
+barcodeScanner.onResult = ({ barcode }) => {
+    if (barcode.format === Barcode.FormatType.QR_CODE) {
         console.log("This is a qr code");
     }
+};
 ```    
 ## Notes
-1. Hiding the barcodeScanner causes [page.onShow](http://ref.smartface.io/#!/api/UI.Page-event-onShow) event to be fired.
-2. If there is a need for closing the scanner, it needs to be implemented by the developer. UI close button example is in [sample](./sample) folder. For Android [onBackButtonPressed](http://ref.smartface.io/#!/api/UI.Page-event-onBackButtonPressed) needs to be implemented.
-3. Scanner does not hide automatically when scanned
-4. A scanner instance can be used only for once per image scan. For each scan action, a new `barcodeScanner` instance should be created and used
-5. For Android, if there is an active textbox (keyboard is visible), developer needs to close the keyboard before showing the scanner.
+- If there is a need for closing the scanner, it needs to be implemented by the developer. For Android [onBackButtonPressed](http://ref.smartface.io/#!/api/UI.Page-event-onBackButtonPressed) needs to be implemented.
+- Scanner does not hide automatically when scanned
+- A scanner instance can be used only for once per image scan. For each scan action, a new `BarcodeScanner` instance should be created and used
+- For Android, if there is an active textbox (keyboard is visible), developer needs to close the keyboard before showing the scanner.
 
 ## Permissions
  For iOS, you have to add camera permission to Info.plist.
@@ -89,15 +78,11 @@ For Android, you have to add camera permission to AndroidManifest.xml.
 <uses-feature android:name="android.hardware.camera.autofocus" />
 ```
 ## Sample
-The folder [sample](./sample) holds the example codes. You can use it with the package.
-```javascript
-Router.add("barcodeScanner", require("sf-extension-barcode/sample/barcodeScanner"));
-Router.go("barcodeScanner");
-```
+There are some examples in [sample](./sample) folder. You can use them.
 ## Credits
 This barcode library is based on:
-1) Android implementation: https://github.com/dm77/barcodescanner
-2) iOS implementation: https://github.com/TheLevelUp/ZXingObjC
+- [Android](https://github.com/dm77/barcodescanner) implementation
+- [iOS](https://github.com/TheLevelUp/ZXingObjC) implementation
 ## Need Help?
 Please [submit an issue](https://github.com/smartface/sf-extension-barcode/issues) on GitHub and provide information about your problem.
 ## Support & Documentation & Useful Links
