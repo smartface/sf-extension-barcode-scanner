@@ -17,8 +17,12 @@ const AVAuthorizationStatus = {
 };
 
 function BarcodeScanner(params) {
-    if (!params.page)
-        throw new Error("page parameter is required");
+    if (!params.layout)
+        throw new Error("layout parameter is required");
+    if (!params.width)
+        throw new Error("width parameter is required");
+    if (!params.height)
+        throw new Error("height parameter is required");
 
     Object.defineProperties(this, {
         onResult: {
@@ -26,35 +30,46 @@ function BarcodeScanner(params) {
             set: e => this._onResult = e,
             enumerable: true
         },
+        width: {
+            get: () => this._width,
+            set: e => this._width = e,
+            enumerable: true
+        },
+        height: {
+            get: () => this._height,
+            set: e => this._height = e,
+            enumerable: true
+        },
         layout: {
-            get: () => this.page.layout,
+            get: () => this._layout,
+            set: layout => this._layout = layout,
             enumerable: true
         },
         startCamera: {
             value: () => {
                 this.cameraStarted = true;
-                Invocation.invokeInstanceMethod(this.page.capture, "start", []);
+                Invocation.invokeInstanceMethod(this.layout.capture, "start", []);
             },
             enumerable: true,
             configurable: true
         },
         show: {
             value: () => {
-                let page = this.page;
+                let layout = this.layout;
                 let alloc = Invocation.invokeClassMethod("ZXCapture", "alloc", [], "id");
-                page.capture = Invocation.invokeInstanceMethod(alloc, "init", [], "id");
-                page.captureLayer = Invocation.invokeInstanceMethod(page.capture,
+                layout.capture = Invocation.invokeInstanceMethod(alloc, "init", [], "id");
+                layout.captureLayer = Invocation.invokeInstanceMethod(layout.capture,
                     "layer", [], "NSObject");
 
                 let argCaptureLayer = new Invocation.Argument({
                     type: "NSObject",
-                    value: page.captureLayer
+                    value: layout.captureLayer
                 });
                 let argSublayerIndex = new Invocation.Argument({
                     type: "NSUInteger",
                     value: 0
                 });
-                Invocation.invokeInstanceMethod(page.layout.nativeObject.layer,
+                Invocation.invokeInstanceMethod(layout.nativeObject.layer,
                     "insertSublayer:atIndex:", [argCaptureLayer, argSublayerIndex]);
 
                 let argCaptureFrame = new Invocation.Argument({
@@ -62,23 +77,23 @@ function BarcodeScanner(params) {
                     value: {
                         x: 0,
                         y: 0,
-                        width: Screen.width,
-                        height: Screen.height
+                        width: this.width,
+                        height: this.height
                     }
                 });
-                Invocation.invokeInstanceMethod(page.captureLayer, "setFrame:", [argCaptureFrame]);
+                Invocation.invokeInstanceMethod(layout.captureLayer, "setFrame:", [argCaptureFrame]);
 
                 let argCaptureBack = new Invocation.Argument({
                     type: "NSInteger",
-                    value: Invocation.invokeInstanceMethod(page.capture, "back", [], "NSInteger")
+                    value: Invocation.invokeInstanceMethod(layout.capture, "back", [], "NSInteger")
                 });
-                Invocation.invokeInstanceMethod(page.capture, "setCamera:", [argCaptureBack]);
+                Invocation.invokeInstanceMethod(layout.capture, "setCamera:", [argCaptureBack]);
 
                 let argFocusMode = new Invocation.Argument({
                     type: "NSInteger",
                     value: AVCaptureFocusMode.ContinuousAutoFocus
                 });
-                Invocation.invokeInstanceMethod(page.capture, "setFocusMode:", [argFocusMode]);
+                Invocation.invokeInstanceMethod(layout.capture, "setFocusMode:", [argFocusMode]);
 
                 let CaptureDelegate = SF.defineClass("CaptureDelegate : NSObject <ZXCaptureDelegate>", {
                     captureResultResult: (capture, result) => {
@@ -98,12 +113,12 @@ function BarcodeScanner(params) {
                     captureSizeWidthHeight: function(capture, width, height) {}
                 });
 
-                page.captureDelegate = CaptureDelegate.new();
+                layout.captureDelegate = CaptureDelegate.new();
                 let argCaptureDelegate = new Invocation.Argument({
                     type: "NSObject",
-                    value: page.captureDelegate
+                    value: layout.captureDelegate
                 });
-                Invocation.invokeInstanceMethod(page.capture, "setDelegate:", [
+                Invocation.invokeInstanceMethod(layout.capture, "setDelegate:", [
                     argCaptureDelegate
                 ]);
                 this.applyOrientationParentView();
@@ -122,7 +137,7 @@ function BarcodeScanner(params) {
         stopCamera: {
             value: () => {
                 this.cameraStarted = false;
-                Invocation.invokeInstanceMethod(this.page.capture, "stop", []);
+                Invocation.invokeInstanceMethod(this.layout.capture, "stop", []);
             },
             enumerable: true,
             configurable: true
@@ -136,7 +151,7 @@ function BarcodeScanner(params) {
             value: () => {
                 let argCapture = new Invocation.Argument({
                     type: "NSObject",
-                    value: this.page.capture
+                    value: this.layout.capture
                 });
                 Invocation.invokeClassMethod("ZXingObjcHelper", "applyOrientation:", [argCapture]);
             }

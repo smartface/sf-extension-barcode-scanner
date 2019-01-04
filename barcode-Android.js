@@ -4,8 +4,8 @@ const AndroidConfig = require('sf-core/util/Android/androidconfig');
 const View = require("sf-core/ui/view");
 
 function BarcodeScanner(params) {
-    if (!params.page)
-        throw new Error("page parameter is required");
+    if (!params.layout)
+        throw new Error("layout parameter is required");
 
     Object.defineProperties(this, {
         onResult: {
@@ -14,7 +14,8 @@ function BarcodeScanner(params) {
             enumerable: true
         },
         layout: {
-            get: () => this.page.layout,
+            get: () => this._layout,
+            set: layout => this._layout = layout,
             enumerable: true
         },
         startCamera: {
@@ -41,7 +42,7 @@ function BarcodeScanner(params) {
                 });
                 this._scannerView.nativeObject.setResultHandler(resultHandler);
                 this._scannerView.nativeObject.resumeCameraPreview(resultHandler);
-                this.page.layout.addChild(this._scannerView);
+                this.layout.addChild(this._scannerView);
             },
             enumerable: true,
             configurable: true
