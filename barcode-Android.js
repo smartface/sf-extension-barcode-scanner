@@ -1,30 +1,34 @@
 /* globals requireClass */
 const Barcode = require("./Barcode");
 const AndroidConfig = require('sf-core/util/Android/androidconfig');
+const View = require("sf-core/ui/view");
 
 function BarcodeScanner(params) {
     if (!params.page)
         throw new Error("page parameter is required");
 
     Object.defineProperties(this, {
-        'onResult': {
+        onResult: {
             get: () => this._onResult,
             set: e => this._onResult = e,
             enumerable: true
         },
-        'startCamera': {
+        layout: {
+            get: () => this.page.layout,
+            enumerable: true
+        },
+        startCamera: {
             value: () => {
-                let layout = this.page.layout;
-                layout.nativeObject.startCamera();
+                this._scannerView.nativeObject.startCamera();
             },
             enumerable: true,
             configurable: true
         },
-        'show': {
+        show: {
             value: () => {
-                let layout = this.page.layout;
                 const ZXingScannerView = requireClass("me.dm7.barcodescanner.zxing.ZXingScannerView");
-                layout.nativeObject = new ZXingScannerView(AndroidConfig.activity);
+                this._scannerView = new View({ flexGrow: 1 });
+                this._scannerView.nativeObject = new ZXingScannerView(AndroidConfig.activity);
                 let resultHandler = ZXingScannerView.ResultHandler.implement({
                     handleResult: rawResult => {
                         this._onResult && this._onResult({
@@ -35,29 +39,28 @@ function BarcodeScanner(params) {
                         });
                     }
                 });
-                layout.nativeObject.setResultHandler(resultHandler);
-                layout.nativeObject.resumeCameraPreview(resultHandler);
+                this._scannerView.nativeObject.setResultHandler(resultHandler);
+                this._scannerView.nativeObject.resumeCameraPreview(resultHandler);
+                this.page.layout.addChild(this._scannerView);
             },
             enumerable: true,
             configurable: true
         },
-        'hide': {
+        hide: {
             value: () => {
-                let layout = this.page.layout;
-                layout.removeAll();
+                this.layout.removeAll();
             },
             enumerable: true,
             configurable: true
         },
-        'stopCamera': {
+        stopCamera: {
             value: () => {
-                let layout = this.page.layout;
-                layout.nativeObject.stopCamera();
+                this._scannerView.nativeObject.stopCamera();
             },
             enumerable: true,
             configurable: true
         },
-        'toString': {
+        toString: {
             value: () => "BarcodeScanner",
             enumerable: true,
             configurable: true

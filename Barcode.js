@@ -1,46 +1,18 @@
+const System = require("sf-core/device/system");
+var isIOS = System.OS === "iOS";
+
 function Barcode(params) {
-    var _format;
-    Object.defineProperty(this, 'format', {
-        get: function() {
-            return _format;
+    Object.defineProperties(this, {
+        'format': {
+            get: () => this._format,
+            set: e => this._format = e,
+            enumerable: true
         },
-        set: function(format) {
-            _format = format;
-        },
-        enumerable: true
-    });
-
-    var _text;
-    Object.defineProperty(this, 'text', {
-        get: function() {
-            return _text;
-        },
-        set: function(text) {
-            _text = text;
-        },
-        enumerable: true
-    });
-
-    var _width;
-    Object.defineProperty(this, 'width', {
-        get: function() {
-            return _width;
-        },
-        set: function(width) {
-            _width = width;
-        },
-        enumerable: true
-    });
-
-    var _height;
-    Object.defineProperty(this, 'height', {
-        get: function() {
-            return _height;
-        },
-        set: function(height) {
-            _height = height;
-        },
-        enumerable: true
+        'text': {
+            get: () => this._text,
+            set: e => this._text = e,
+            enumerable: true
+        }
     });
 
     if (params) {
@@ -57,71 +29,71 @@ Object.defineProperty(Barcode, "FormatType", {
 
 Object.defineProperties(Barcode.FormatType, {
     'AZTEC': {
-        value: 0,
+        value: isIOS ? 0 : 'AZTEC',
         enumerable: true
     },
     'CODABAR': {
-        value: 1,
+        value: isIOS ? 1 : 'CODABAR',
         enumerable: true
     },
     'CODE_39': {
-        value: 2,
+        value: isIOS ? 2 : 'CODE_39',
         enumerable: true
     },
     'CODE_93': {
-        value: 3,
+        value: isIOS ? 3 : 'CODE_93',
         enumerable: true
     },
     'CODE_128': {
-        value: 4,
+        value: isIOS ? 4 : 'CODE_128',
         enumerable: true
     },
     'DATA_MATRIX': {
-        value: 5,
+        value: isIOS ? 5 : 'DATA_MATRIX',
         enumerable: true
     },
     'EAN_8': {
-        value: 6,
+        value: isIOS ? 6 : 'EAN_8',
         enumerable: true
     },
     'EAN_13': {
-        value: 7,
+        value: isIOS ? 7 : 'EAN_13',
         enumerable: true
     },
     'ITF': {
-        value: 8,
+        value: isIOS ? 8 : 'ITF',
         enumerable: true
     },
     'MAXICODE': {
-        value: 9,
+        value: isIOS ? 9 : 'MAXICODE',
         enumerable: true
     },
     'PDF_417': {
-        value: 10,
+        value: isIOS ? 10 : 'PDF_417',
         enumerable: true
     },
     'QR_CODE': {
-        value: 11,
+        value: isIOS ? 11 : 'QR_CODE',
         enumerable: true
     },
     'RSS_14': {
-        value: 12,
+        value: isIOS ? 12 : 'RSS_14',
         enumerable: true
     },
     'RSS_EXPANDED': {
-        value: 13,
+        value: isIOS ? 13 : 'RSS_EXPANDED',
         enumerable: true
     },
     'UPC_A': {
-        value: 14,
+        value: isIOS ? 14 : 'UPC_A',
         enumerable: true
     },
     'UPC_E': {
-        value: 15,
+        value: isIOS ? 15 : 'UPC_E',
         enumerable: true
     },
     'UPC_EAN_EXTENSION': {
-        value: 16,
+        value: isIOS ? 16 : 'UPC_EAN_EXTENSION',
         enumerable: true
     }
 });

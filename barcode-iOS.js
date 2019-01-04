@@ -21,16 +21,16 @@ function BarcodeScanner(params) {
         throw new Error("page parameter is required");
 
     Object.defineProperties(this, {
-        'onResult': {
+        onResult: {
             get: () => this._onResult,
             set: e => this._onResult = e,
             enumerable: true
         },
-        'layout': {
+        layout: {
             get: () => this.page.layout,
             enumerable: true
         },
-        'startCamera': {
+        startCamera: {
             value: () => {
                 this.cameraStarted = true;
                 Invocation.invokeInstanceMethod(this.page.capture, "start", []);
@@ -38,7 +38,7 @@ function BarcodeScanner(params) {
             enumerable: true,
             configurable: true
         },
-        'show': {
+        show: {
             value: () => {
                 let page = this.page;
                 let alloc = Invocation.invokeClassMethod("ZXCapture", "alloc", [], "id");
@@ -106,19 +106,20 @@ function BarcodeScanner(params) {
                 Invocation.invokeInstanceMethod(page.capture, "setDelegate:", [
                     argCaptureDelegate
                 ]);
+                this.applyOrientationParentView();
                 this.cameraStarted = true;
             },
             enumerable: true,
             configurable: true
         },
-        'hide': {
+        hide: {
             value: () => {
                 this.layout.removeAll();
             },
             enumerable: true,
             configurable: true
         },
-        'stopCamera': {
+        stopCamera: {
             value: () => {
                 this.cameraStarted = false;
                 Invocation.invokeInstanceMethod(this.page.capture, "stop", []);
@@ -126,10 +127,19 @@ function BarcodeScanner(params) {
             enumerable: true,
             configurable: true
         },
-        'toString': {
+        toString: {
             value: () => "BarcodeScanner",
             enumerable: true,
             configurable: true
+        },
+        applyOrientationParentView: {
+            value: () => {
+                let argCapture = new Invocation.Argument({
+                    type: "NSObject",
+                    value: this.page.capture
+                });
+                Invocation.invokeClassMethod("ZXingObjcHelper", "applyOrientation:", [argCapture]);
+            }
         }
     });
 
