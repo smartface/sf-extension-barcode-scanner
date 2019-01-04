@@ -14,7 +14,9 @@ const { BarcodeScanner } = require("sf-extension-barcode");
 - Create an instance of `BarcodeScanner`. Result will be handled in `onResult` callback.
 ```javascript
 var barcodeScanner = new BarcodeScanner({
-    page, // Required
+    layout: myFlexLayout, // Required
+    width: 200, // Required
+    height: 200, // Required
     onResult: ({ barcode }) => {
         let { text, format } = barcode;
         alert(text);
@@ -64,6 +66,7 @@ barcodeScanner.onResult = ({ barcode }) => {
 - Scanner does not hide automatically when scanned
 - A scanner instance can be used only for once per image scan. For each scan action, a new `BarcodeScanner` instance should be created and used
 - For Android, if there is an active textbox (keyboard is visible), developer needs to close the keyboard before showing the scanner.
+- It is advised to call `show` method with a timeout value for rendering performance.
 
 ## Permissions
  For iOS, you have to add camera permission to Info.plist.
