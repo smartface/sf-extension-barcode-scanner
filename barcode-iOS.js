@@ -88,7 +88,7 @@ function BarcodeScanner(params) {
                     value: Invocation.invokeInstanceMethod(layout.capture, "back", [], "NSInteger")
                 });
                 Invocation.invokeInstanceMethod(layout.capture, "setCamera:", [argCaptureBack]);
-
+                
                 let argFocusMode = new Invocation.Argument({
                     type: "NSInteger",
                     value: AVCaptureFocusMode.ContinuousAutoFocus
@@ -129,7 +129,12 @@ function BarcodeScanner(params) {
         },
         hide: {
             value: () => {
-                this.layout.removeAll();
+                // this.layout.removeAll();
+                this.layout.captureLayer.removeFromSuperlayer();
+                this.layout.captureLayer = undefined;
+                this.layout.captureDelegate = undefined;
+                this.layout.capture = undefined;
+                this.layout = undefined;
             },
             enumerable: true,
             configurable: true
@@ -137,7 +142,7 @@ function BarcodeScanner(params) {
         stopCamera: {
             value: () => {
                 this.cameraStarted = false;
-                Invocation.invokeInstanceMethod(this.layout.capture, "stop", []);
+                Invocation.invokeInstanceMethod(this.layout.capture, "hard_stop", []);
             },
             enumerable: true,
             configurable: true
