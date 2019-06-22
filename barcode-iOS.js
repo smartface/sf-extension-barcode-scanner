@@ -58,6 +58,11 @@ function BarcodeScanner(params) {
                 let layout = this.layout;
                 let alloc = Invocation.invokeClassMethod("ZXCapture", "alloc", [], "id");
                 layout.capture = Invocation.invokeInstanceMethod(alloc, "init", [], "id");
+                let argCaptureFramesPerSec = new Invocation.Argument({
+                    type: "CGFloat",
+                    value: 100
+                });
+                Invocation.invokeInstanceMethod(layout.capture, "setCaptureFramesPerSec:", [argCaptureFramesPerSec]);
                 layout.captureLayer = Invocation.invokeInstanceMethod(layout.capture,
                     "layer", [], "NSObject");
 
