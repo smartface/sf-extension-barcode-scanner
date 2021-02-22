@@ -76,7 +76,7 @@ function BarcodeScanner(params) {
 }
 
 Object.defineProperty(BarcodeScanner, "Format", {
-    value: BarcodeScanner.FormatType,
+    value: Barcode.FormatType,
     enumerable: true
 })
 

@@ -21,7 +21,7 @@ enum BarcodeFormat {
 }
 
 interface IBarcodeScanner {
-    onResult?: (options?: { option?: { text: string, format: BarcodeFormat } }) => void;
+    onResult?: (options?: { barcode?: { text: string, format: BarcodeFormat } }) => void;
     /**
      * Typically, page.layout is used
      */
@@ -39,7 +39,7 @@ declare class BarcodeScanner implements IBarcodeScanner {
     show(): void;
     hide(): void;
     stopCamera(): void;
-    static Format: BarcodeFormat;
+    static Format: typeof BarcodeFormat;
     static ios: {
         checkPermission(params?: {
             onSuccess: () => void,
