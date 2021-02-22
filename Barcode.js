@@ -9,7 +9,7 @@ function Barcode(params) {
             enumerable: true
         },
         'text': {
-            get: () => this._text,
+            get: () => this._text,  
             set: e => this._text = e,
             enumerable: true
         }

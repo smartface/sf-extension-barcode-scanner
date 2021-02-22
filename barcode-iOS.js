@@ -114,8 +114,8 @@ function BarcodeScanner(params) {
                             })
                         });
                     },
-                    captureCameraIsReady: function(capture) {},
-                    captureSizeWidthHeight: function(capture, width, height) {}
+                    captureCameraIsReady: function (capture) { },
+                    captureSizeWidthHeight: function (capture, width, height) { }
                 });
 
                 layout.captureDelegate = CaptureDelegate.new();
@@ -174,10 +174,15 @@ function BarcodeScanner(params) {
     }
 }
 
+Object.defineProperty(BarcodeScanner, "Format", {
+    value: Barcode.FormatType,
+    enumerable: true
+})
+
 BarcodeScanner.ios = {};
 BarcodeScanner.ios.checkPermission = e => {
-    let onSuccess = typeof e.onSuccess === 'function' ? e.onSuccess : () => {};
-    let onFailure = typeof e.onFailure === 'function' ? e.onFailure : () => {};
+    let onSuccess = typeof e.onSuccess === 'function' ? e.onSuccess : () => { };
+    let onFailure = typeof e.onFailure === 'function' ? e.onFailure : () => { };
     let argMediaType = new Invocation.Argument({
         type: "NSString",
         value: "vide"
@@ -211,6 +216,5 @@ BarcodeScanner.ios.checkPermission = e => {
 };
 
 module.exports = {
-    BarcodeScanner,
-    Barcode
+    BarcodeScanner
 };
