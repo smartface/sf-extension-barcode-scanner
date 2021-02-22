@@ -75,7 +75,13 @@ function BarcodeScanner(params) {
     }
 }
 
+Object.defineProperty(BarcodeScanner, "Format", {
+    value: BarcodeScanner.FormatType,
+    enumerable: true
+})
+
+BarcodeScanner.ios = {};
+
 module.exports = {
-    Barcode,
     BarcodeScanner
 };

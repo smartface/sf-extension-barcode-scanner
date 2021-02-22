@@ -174,6 +174,11 @@ function BarcodeScanner(params) {
     }
 }
 
+Object.defineProperty(BarcodeScanner, "Format", {
+    value: BarcodeScanner.FormatType,
+    enumerable: true
+})
+
 BarcodeScanner.ios = {};
 BarcodeScanner.ios.checkPermission = e => {
     let onSuccess = typeof e.onSuccess === 'function' ? e.onSuccess : () => {};
