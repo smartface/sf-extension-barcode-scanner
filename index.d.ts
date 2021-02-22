@@ -20,8 +20,9 @@ declare enum BarcodeFormat {
     UPC_EAN_EXTENSION
 }
 
+declare type TOnResult = (options?: { barcode?: { text: string; format: BarcodeFormat; }; }) => void;
 declare interface IBarcodeScanner {
-    onResult?: (options?: { barcode?: { text: string, format: BarcodeFormat } }) => void;
+    onResult?: TOnResult;
     /**
      * Typically, page.layout is used
      */
@@ -32,6 +33,7 @@ declare interface IBarcodeScanner {
 
 export class BarcodeScanner {
     constructor(params: IBarcodeScanner);
+    onResult?: TOnResult;
     startCamera(): void;
     /**
      * Permissions must be granted to use this function. 
