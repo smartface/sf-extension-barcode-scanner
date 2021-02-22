@@ -54,9 +54,9 @@ Barcode.FormatType.UPC_EAN_EXTENSION
 
 Barcode format can be retrieved like this.
 ```javascript
-import { Barcode } from "sf-extension-barcode";
+import { BarcodeScanner } from "sf-extension-barcode";
 barcodeScanner.onResult = ({ barcode }) => {
-    if (barcode.format === Barcode.FormatType.QR_CODE) {
+    if (barcode.format === BarcodeScanner.Format.QR_CODE) {
         console.log("This is a qr code");
     }
 };
