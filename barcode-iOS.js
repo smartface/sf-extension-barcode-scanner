@@ -216,6 +216,5 @@ BarcodeScanner.ios.checkPermission = e => {
 };
 
 module.exports = {
-    BarcodeScanner,
-    Barcode
+    BarcodeScanner
 };

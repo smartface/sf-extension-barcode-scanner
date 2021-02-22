@@ -40,10 +40,10 @@ declare class BarcodeScanner implements IBarcodeScanner {
     hide(): void;
     stopCamera(): void;
     static Format: BarcodeFormat;
-    ios: {
-        checkPermission: ({
+    static ios: {
+        checkPermission(params?: {
             onSuccess: () => void,
-            onFailure: () => void,
-        }) => void;
+            onFailure: () => void
+        }): void;
     }
 }
