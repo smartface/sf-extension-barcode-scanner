@@ -1,6 +1,6 @@
 import ViewGroup = require('sf-core/ui/viewgroup');
 
-enum BarcodeFormat {
+declare enum BarcodeFormat {
     AZTEC,
     CODABAR,
     CODE_39,
@@ -20,7 +20,7 @@ enum BarcodeFormat {
     UPC_EAN_EXTENSION
 }
 
-interface IBarcodeScanner {
+declare interface IBarcodeScanner {
     onResult?: (options?: { barcode?: { text: string, format: BarcodeFormat } }) => void;
     /**
      * Typically, page.layout is used
@@ -29,7 +29,8 @@ interface IBarcodeScanner {
     width: number;
     height: number;
 }
-declare class BarcodeScanner implements IBarcodeScanner {
+
+export class BarcodeScanner {
     constructor(params: IBarcodeScanner);
     startCamera(): void;
     /**
