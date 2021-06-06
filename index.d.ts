@@ -1,4 +1,4 @@
-import ViewGroup from "sf-core/ui/viewgroup";
+import ViewGroup from "@smartface/native/ui/viewgroup";
 
 declare enum BarcodeFormat {
   AZTEC,

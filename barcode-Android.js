@@ -1,7 +1,7 @@
 /* globals requireClass */
 const Barcode = require("./Barcode");
-const AndroidConfig = require("sf-core/util/Android/androidconfig");
-const View = require("sf-core/ui/view");
+const AndroidConfig = require("@smartface/native/util/Android/androidconfig");
+const View = require("@smartface/native/ui/view");
 
 function BarcodeScanner(params) {
   if (!params.layout) throw new Error("layout parameter is required");

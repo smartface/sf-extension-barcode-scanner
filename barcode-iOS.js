@@ -1,6 +1,6 @@
 /* globals SF, __SF_Dispatch */
-const Invocation = require("sf-core/util").Invocation;
-const Screen = require("sf-core/device/screen");
+const Invocation = require("@smartface/native/util").Invocation;
+const Screen = require("@smartface/native/device/screen");
 const Barcode = require("./Barcode");
 
 const AVCaptureFocusMode = {

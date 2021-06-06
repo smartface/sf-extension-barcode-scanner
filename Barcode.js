@@ -1,4 +1,4 @@
-const System = require("sf-core/device/system");
+const System = require("@smartface/native/device/system");
 var isIOS = System.OS === "iOS";
 
 function Barcode(params) {
