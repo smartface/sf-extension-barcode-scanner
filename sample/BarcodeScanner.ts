@@ -2,7 +2,7 @@ import Screen from "@smartface/native/device/screen";
 import Application from "@smartface/native/application";
 import System from "@smartface/native/device/system";
 import Page from "@smartface/native/ui/page";
-import { BarcodeScanner as SFBarcodeScanner } from "sf-extension-barcode";
+import { BarcodeScanner as SFBarcodeScanner } from "@smartface/extension-barcode";
 import AlertView from "@smartface/native/ui/alertview";
 
 // Note to developer: This should be located in scripts/lib folder

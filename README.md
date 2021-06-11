@@ -9,7 +9,7 @@ npm i @smartface/extension-barcode
 ## How to use
 - Import extension with
 ```javascript
-import { BarcodeScanner } from "sf-extension-barcode";
+import { BarcodeScanner } from "@smartface/extension-barcode";
 ```
 - Create an instance of `BarcodeScanner`. Result will be handled in `onResult` callback.
 ```javascript
@@ -54,7 +54,7 @@ Barcode.FormatType.UPC_EAN_EXTENSION
 
 Barcode format can be retrieved like this.
 ```javascript
-import { BarcodeScanner } from "sf-extension-barcode";
+import { BarcodeScanner } from "@smartface/extension-barcode";
 barcodeScanner.onResult = ({ barcode }) => {
     if (barcode.format === BarcodeScanner.Format.QR_CODE) {
         console.log("This is a qr code");

@@ -22,8 +22,5 @@
   "license": "MIT",
   "publishConfig": {
     "access": "public"
-  },
-  "peerDependencies": {
-    "@smartface/native": "^4.0.0"
   }
 }
